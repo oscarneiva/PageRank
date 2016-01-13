@@ -10,26 +10,26 @@ close all
 tic();
 
 %Number of states
-N = 3756;
+N = 4;
 
 %Number of distributed matrix
 NPn = N;
 
 %Time horizon
-T = 100000;
+T = 100;
 
 %Time horizon monte carlo 
-itmax = 100000;
+itmax = 100;
 
 %Parameter m of Mean-Square Error
 m = 0.15; %m = 0.15
 
 %Random vector 
-x = rand(1,N);
-x = diag(x*ones(N,1))\x;
+%x = rand(1,N);
+%x = diag(x*ones(N,1))\x;
 
 %Static vectors
-%x = [0.1 0.3 0.4 0.2]; %Simple PageRank
+x = [0.1 0.2 0.3 0.4]; %Simple PageRank
 
 %Other vectors
 y = x;
@@ -40,11 +40,11 @@ zr = x;
 w = zeros(T+1,N);
 
 %Random Stochastic Matrix(line)
-P = rand(N);
-P = diag(P*ones(N,1))\P;
+%P = rand(N);
+%P = diag(P*ones(N,1))\P;
 
 %Stochastic Matrix
-%P = [0 0 0 1; 0.5 0 0.5 0; 0 0 0 1; 0.5 0.5 0 0];
+P = [0 0 0 1; 0.5 0 0.5 0; 0 0 0 1; 0.5 0.5 0 0];
 
 %Vector with ones
 v1 = ones(1,N);
@@ -71,7 +71,7 @@ for it=1:itmax
 		%Generate one integer number to represent the random distributed matrix
 		Pn = ceil(rand*NPn);
 
-		%Simple PageRank
+		%Power Metod
 		x(k+1,:) = x(k,:)*P;
 		
 		%PageRank with teleportation model (not distributed)
@@ -83,10 +83,10 @@ for it=1:itmax
 		%PageRank with teleportation model (distributed)
 		yd(k+1,:) = (1-M)*(xd(k,:)*PP(:,:,Pn)) + (M/NPn)*v1;
 
-		%PageRank with Polyak average (not recursive)
+		%PageRank with time average (not recursive)
 		z(k,:) = sum(yd)/(T+1);
 
-		%PageRank with Polyak average (recursive)
+		%PageRank with time average (recursive)
 		zr(k+1,:) = (((k+1)/(k+2)) * zr(k,:)) + ((1/(k+2))*yd(k+1,:));
 	end
 	w = w + zr./itmax;
@@ -100,21 +100,21 @@ time = toc ();
 clf
 
 figure(1);
-subplot(211);
-plot(x,'Linewidth',1.0);
-%set(gca,'fontsize',20);
+%subplot(211);
+plot(x,'Linewidth',2.0);
+set(gca,'fontsize',20);
 set(gca,'XLim',[1 T]);
 set(gca,'YLim',[0 2/N]);
-title('PageRank');
+title('Power Metod');
 ylabel('Pages values');
 xlabel('Time');
-%print('-depsc2','pagerank','-F:30');
-%!ps2pdf -dEPSCrop pagerank.eps pagerank.pdf
+print('-depsc2','powermetod');
+%!ps2pdf -dEPSCrop powermetod.eps powermetod.pdf
 
-%figure(2);
-subplot(212);
-plot(y, 'Linewidth', 1.0);
-%set(gca,'fontsize',20);
+figure(2);
+%subplot(212);
+plot(y, 'Linewidth', 2.0);
+set(gca,'fontsize',20);
 set(gca,'XLim',[1 T]);
 set(gca,'YLim',[0 2/N]);
 title('Teleportation Model');
@@ -123,22 +123,22 @@ xlabel('Time');
 print('-depsc2','teleportation');
 %!ps2pdf -dEPSCrop teleportation.eps teleportation.pdf
 
-figure(3);
-subplot(211);
-plot(xd, 'Linewidth', 1.0);
+%figure(3);
+%subplot(211);
+%plot(xd, 'Linewidth', 1.0);
 %set(gca,'fontsize',20);
-set(gca,'XLim',[1 T]);
-set(gca,'YLim',[0 2/N]);
-title('PageRank With Distributed Link Matrices');
-ylabel('Pages values');
-xlabel('Time');
+%set(gca,'XLim',[1 T]);
+%set(gca,'YLim',[0 2/N]);
+%title('PageRank With Distributed Link Matrices');
+%ylabel('Pages values');
+%xlabel('Time');
 %print('-depsc2','pagedistributed');
 %!ps2pdf -dEPSCrop pagedistributed.eps pagedistributed.pdf
 
-%figure(4);
-subplot(212);
-plot(yd, 'Linewidth', 1.0);
-%set(gca,'fontsize',20);
+figure(4);
+%subplot(212);
+plot(yd, 'Linewidth', 2.0);
+set(gca,'fontsize',20);
 set(gca,'XLim',[1 T]);
 set(gca,'YLim',[0 2/N]);
 title('Teleportation Model With Distributed Link Matrices');
@@ -153,28 +153,28 @@ print('-depsc2','teledistributed');
 %set(gca,'fontsize',20);
 %set(gca,'XLim',[1 T]);
 %set(gca,'YLim',[0 2/N]);
-%title('Distributed Teleportation Model With Polyak Average (Not Recursive)');
+%title('Time Average (Not Recursive)');
 %ylabel('Pages values');
 %xlabel('Time');
 %print('-depsc2','polyak','-F:30');
 %!ps2pdf -dEPSCrop polyak.eps polyak.pdf
 
 figure(6);
-subplot(211);
-plot(zr, 'Linewidth', 1.0);
-%set(gca,'fontsize',20);
+%subplot(211);
+plot(zr, 'Linewidth', 2.0);
+set(gca,'fontsize',20);
 set(gca,'XLim',[1 T]);
 set(gca,'YLim',[0 2/N]);
-title('Polyak Average (Recursive)');
+title('Time Average (Recursive)');
 ylabel('Pages values');
 xlabel('Time');
-%print('-depsc2','polyakrecursive','-F:30');
-%!ps2pdf -dEPSCrop polyakrecursive.eps polyakrecursive.pdf
+print('-depsc2','timerecursive');
+%!ps2pdf -dEPSCrop timerecursive.eps timerecursive.pdf
 
-%figure(7);
-subplot(212);
-plot(w, 'Linewidth', 1.0);
-%set(gca,'fontsize',20);
+figure(7);
+%subplot(212);
+plot(w, 'Linewidth', 2.0);
+set(gca,'fontsize',20);
 set(gca,'XLim',[1 itmax]);
 set(gca,'YLim',[0 2/N]);
 title('Monte Carlo Simulation');
