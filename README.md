@@ -5,15 +5,15 @@ PageRank
 A simulation of the PageRank algorithm in MatLab.
 
 
-Gallery
--------
-![screenshot 1](https://bitbucket.org/oscar-neiva/pagerank/images/picture.png)
-
-
 License
 -------
 This code is licensed under the GNU GENERAL PUBLIC LICENSE, of which a textual copy is available at [LICENSE.txt](LICENSE.txt).
 
 
+Credits
+-------
+Oscar Neiva
 
+- Email: oscarneivaeneto@gmail.com or oscarneivaeneto@outlook.com
 
+- Website: https://oscar-neiva.github.io/
