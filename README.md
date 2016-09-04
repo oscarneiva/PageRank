@@ -7,7 +7,7 @@ A simulation of the PageRank algorithm in MatLab.
 
 Gallery
 -------
-![screenshot 1](https://github.com/oscar-neiva/Weight-Sensor/blob/master/images/picture.png)
+![screenshot 1](https://bitbucket.org/oscar-neiva/pagerank/images/picture.png)
 
 
 License
