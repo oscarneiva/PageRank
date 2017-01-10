@@ -10,6 +10,11 @@ License
 This code is licensed under the GNU GENERAL PUBLIC LICENSE, of which a textual copy is available at [LICENSE.txt](LICENSE.txt).
 
 
+Gallery
+-------
+![screenshot 1](https://github.com/oscar-neiva/PageRank-Simulations/blob/master/images/picture.png)
+
+
 Credits
 -------
 Oscar Neiva
