@@ -3,7 +3,7 @@ PageRank
 ![License: MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 Simulations of a variety of types of ranking algorithms made during my work in LNCC.
-OK
+
 
 License
 -------
